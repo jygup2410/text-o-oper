@@ -1,0 +1,9 @@
+numpy
+pandas
+transformers
+easyocr
+keras
+tensorflow
+flask_login
+flask_mysqldb
+flask_bcrypt

@@ -10,9 +10,9 @@ from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request
 from transformers import MarianMTModel, MarianTokenizer
 
-from keras.models import load_model
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from flask_login import LoginManager, UserMixin,login_user, login_required, logout_user,current_user
 from flask_mysqldb import MySQL
 
@@ -67,11 +67,11 @@ import requests
 
 app = Flask(__name__)
 
-app.secret_key="4657iybhj89fvijl899uibhn"
+app.secret_key="4657iybhj89fvijl899uibhln"
 
 app.config['MYSQL_HOST']="localhost"
 app.config['MYSQL_USER']="root"
-app.config['MYSQL_PASSWORD']="man0045chau"
+app.config['MYSQL_PASSWORD']="jyoti2410#"
 app.config['MYSQL_DB']="flask_database"
 # app.config['MYSQL_PORT'] = 3306 
 # app.config['MYSQL_UNIX_SOCKET'] = None
@@ -254,7 +254,7 @@ def upload():
 
 
 # Load the trained model
-model = load_model("translation_model.h5")
+# model = load_model("translation_model.h5")
 
 # Load target tokenizer (replace 'target_tokenizer_path' with the actual path)
 target_tokenizer = Tokenizer()
@@ -297,25 +297,25 @@ def translate_text(input_text):
 
     # Assuming model is the name of your translation model
     # Modify the following line to match your actual model architecture
-    output_tokens, h, c = model.predict([input_seq, target_seq])
+    # output_tokens, h, c = model.predict([input_seq, target_seq])
 
 
     while not stop_condition:
-        output_tokens, h, c = model.predict([input_seq, target_seq])
+        # output_tokens, h, c = model.predict([input_seq, target_seq])
         # Sample a token
-        sampled_token_index = np.argmax(output_tokens[0, -1, :])
-        sampled_token = reverse_target_word_index.get(str(sampled_token_index), "")
+        # sampled_token_index = np.argmax(output_tokens[0, -1, :])
+        # sampled_token = reverse_target_word_index.get(str(sampled_token_index), "")
 
-        if sampled_token != "<end>":
-            decoded_sentence += " " + sampled_token
+        # if sampled_token != "<end>":
+            # decoded_sentence += " " + sampled_token
 
         # Exit condition: either hit max length or find stop token
-        if sampled_token == "<end>" or len(decoded_sentence.split()) > max_length_target:
+        # if sampled_token == "<end>" or len(decoded_sentence.split()) > max_length_target:
             stop_condition = True
 
         # Update the target sequence with the newly sampled token
-        target_seq = np.zeros((1, 1))
-        target_seq[0, 0] = sampled_token_index
+        # target_seq = np.zeros((1, 1))/
+        # target_seq[0, 0] = sampled_token_index
 
     return decoded_sentence.strip()
 
